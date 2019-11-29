@@ -4,5 +4,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fragment"
-    android:name="com.evendred.basicapp.MainFragment"
+    android:name="com.evendred.basicapp.ui.main.MainFragment"
     tools:layout="@layout/fragment_main" />
