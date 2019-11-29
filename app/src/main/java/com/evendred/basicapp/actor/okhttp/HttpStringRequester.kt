@@ -5,8 +5,9 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
+import javax.inject.Inject
 
-class HttpStringRequester(private val client: OkHttpClient = OkHttpClient()) {
+class HttpStringRequester @Inject constructor(private val client: OkHttpClient) {
 
     suspend fun getString(url: String): String = withContext(Dispatchers.IO) {
         val request = Request.Builder().url(url).build()

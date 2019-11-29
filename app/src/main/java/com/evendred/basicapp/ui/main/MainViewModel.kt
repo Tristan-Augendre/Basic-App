@@ -1,16 +1,23 @@
 package com.evendred.basicapp.ui.main
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.evendred.basicapp.extensions.cast
+import dagger.Module
+import dagger.Provides
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class MainViewModel(private val controller: MainController): ViewModel() {
+    @Module
+    class MainViewModelModule(private var viewModelStoreOwner: ViewModelStoreOwner) {
+        @Provides
+        fun provideMainViewModel(viewModelFactory: Factory): MainViewModel {
+            return ViewModelProvider(viewModelStoreOwner, viewModelFactory).get()
+        }
+    }
 
-    class Factory(private val controller: MainController = MainController()): ViewModelProvider.Factory {
+    class Factory @Inject constructor(private val controller: MainController): ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T = MainViewModel(controller).cast()
     }
 

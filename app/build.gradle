@@ -29,16 +29,27 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //Language standard library
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    //Language coroutine library
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2'
+
+    //Dependency injection library
+    implementation 'com.google.dagger:dagger:2.25.2'
+    kapt 'com.google.dagger:dagger-compiler:2.25.2'
+
+    //Unit test library
+    testImplementation 'junit:junit:4.12'
+
+    //Retrocompatibility library
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.1.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2'
+
+    //Android architecture component for MVVM library
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
 
     //HTTP network
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'
-
-    //Unit test
-    testImplementation 'junit:junit:4.12'
 }
