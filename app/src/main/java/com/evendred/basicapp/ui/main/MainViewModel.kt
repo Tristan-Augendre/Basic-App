@@ -1,24 +1,36 @@
 package com.evendred.basicapp.ui.main
 
+import android.os.Bundle
 import androidx.lifecycle.*
+import androidx.savedstate.SavedStateRegistryOwner
 import com.evendred.basicapp.extensions.cast
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class MainViewModel(private val controller: MainController): ViewModel() {
+class MainViewModel(private val handle: SavedStateHandle, private val controller: MainController): ViewModel() {
+
     @Module
-    class MainViewModelModule(private var viewModelStoreOwner: ViewModelStoreOwner) {
+    class MainViewModelFactoryModule(private val owner: SavedStateRegistryOwner, private val defaultArgs: Bundle?) {
         @Provides
-        fun provideMainViewModel(viewModelFactory: Factory): MainViewModel {
-            return ViewModelProvider(viewModelStoreOwner, viewModelFactory).get()
+        fun provideMainViewModelFactory(controller: MainController): Factory {
+            return Factory(owner, defaultArgs, controller)
         }
     }
 
-    class Factory @Inject constructor(private val controller: MainController): ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T = MainViewModel(controller).cast()
+    @Module
+    class MainViewModelModule(private val owner: ViewModelStoreOwner) {
+        @Provides
+        fun provideMainViewModel(factory: Factory): MainViewModel {
+            return ViewModelProvider(owner, factory).get()
+        }
+    }
+
+    class Factory(owner: SavedStateRegistryOwner, defaultArgs: Bundle?, private val controller: MainController): AbstractSavedStateViewModelFactory(owner, defaultArgs) {
+        override fun <T : ViewModel?> create(key: String, modelClass: Class<T>, handle: SavedStateHandle): T {
+            return MainViewModel(handle, controller).cast()
+        }
     }
 
     val text = MutableLiveData<String>()
@@ -32,5 +44,9 @@ class MainViewModel(private val controller: MainController): ViewModel() {
 
     fun onClick() = viewModelScope.launch(Dispatchers.Main.immediate) {
         text.value = edit.value
+    }
+
+    override fun onCleared() {
+        //TODO saved instance states
     }
 }

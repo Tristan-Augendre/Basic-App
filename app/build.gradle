@@ -48,7 +48,9 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.1.0'
 
     //Android architecture component for MVVM library
+    implementation 'androidx.fragment:fragment-ktx:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-rc02'
 
     //HTTP network
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'

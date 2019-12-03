@@ -1,6 +1,5 @@
 package com.evendred.basicapp.ui.main
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +14,13 @@ import javax.inject.Inject
 class MainFragment: Fragment() {
     @Inject lateinit var viewModel: MainViewModel
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun onCreate(savedInstanceState: Bundle?) {
         DaggerMainFragmentComponent.builder()
+            .mainViewModelFactoryModule(MainViewModel.MainViewModelFactoryModule(this, savedInstanceState))
             .mainViewModelModule(MainViewModel.MainViewModelModule(this))
             .build().inject(this)
+
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
