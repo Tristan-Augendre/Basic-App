@@ -15,11 +15,7 @@ class MainFragment: Fragment() {
     @Inject lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        DaggerMainFragmentComponent.builder()
-            .mainViewModelFactoryModule(MainViewModel.MainViewModelFactoryModule(this, savedInstanceState))
-            .mainViewModelModule(MainViewModel.MainViewModelModule(this))
-            .build().inject(this)
-
+        MainDaggerInjection.injectMainFragment(this, savedInstanceState)
         super.onCreate(savedInstanceState)
     }
 
