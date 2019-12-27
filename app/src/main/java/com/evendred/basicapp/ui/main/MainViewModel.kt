@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.*
 import androidx.savedstate.SavedStateRegistryOwner
 import com.evendred.basicapp.extensions.cast
-import kotlinx.coroutines.Dispatchers
+import com.evendred.basicapp.extensions.weak
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val handle: SavedStateHandle, private val controller: MainController): ViewModel() {
@@ -17,16 +17,23 @@ class MainViewModel(private val handle: SavedStateHandle, private val controller
     val edit = MutableLiveData<String>()
 
     init {
-        viewModelScope.launch {
-            text.value = controller.getNetworkString()
-        }
+        controller.presenter = MainPresenter(this).weak()
+        onCreated()
     }
 
-    fun onClick() = viewModelScope.launch(Dispatchers.Main.immediate) {
-        text.value = edit.value
+    private fun onCreated() = viewModelScope.launch {
+        controller.onViewFirstCreate()
     }
 
     override fun onCleared() {
         //TODO saved instance states
+    }
+
+    fun onClick() {
+        text.value = edit.value
+    }
+
+    fun setTextValue(value: String) {
+        text.value = value
     }
 }
