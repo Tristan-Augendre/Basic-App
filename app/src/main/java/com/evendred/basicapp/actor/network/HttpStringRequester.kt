@@ -1,4 +1,4 @@
-package com.evendred.basicapp.actor.okhttp
+package com.evendred.basicapp.actor.network
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

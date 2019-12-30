@@ -1,10 +1,10 @@
 package com.evendred.basicapp.ui.main
 
 import android.os.Bundle
+import android.text.Editable
 import androidx.lifecycle.*
 import androidx.savedstate.SavedStateRegistryOwner
 import com.evendred.basicapp.extensions.cast
-import com.evendred.basicapp.extensions.weak
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val handle: SavedStateHandle, private val controller: MainController): ViewModel() {
@@ -14,26 +14,30 @@ class MainViewModel(private val handle: SavedStateHandle, private val controller
     }
 
     val text = MutableLiveData<String>()
-    val edit = MutableLiveData<String>()
+    val editText = MutableLiveData<String>()
 
     init {
-        controller.presenter = MainPresenter(this).weak()
+        controller.onViewBind(MainPresenter(this))
         onCreated()
     }
 
     private fun onCreated() = viewModelScope.launch {
-        controller.onViewFirstCreate()
+        controller.onViewCreated()
     }
 
-    override fun onCleared() {
-        //TODO saved instance states
+    fun onEditTextChanged(text: Editable?) {
+        controller.onEditTextChanged(text.toString())
     }
 
     fun onClick() {
-        text.value = edit.value
+        controller.onClick()
     }
 
     fun setTextValue(value: String) {
         text.value = value
+    }
+
+    override fun onCleared() {
+        controller.onViewCleared()
     }
 }

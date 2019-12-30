@@ -54,4 +54,8 @@ dependencies {
 
     //HTTP network
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'
+
+    //Json mapper
+    implementation 'com.squareup.moshi:moshi:1.9.2'
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.9.2'
 }
