@@ -5,12 +5,7 @@ import com.evendred.basicapp.model.Todo
 import javax.inject.Inject
 
 class MainController @Inject constructor(private var model: MainModel, private val requester: HttpJsonRequester<List<Todo>>) {
-
-    private var presenter: MainPresenter? = null
-
-    fun onViewBind(presenter: MainPresenter) {
-        this.presenter = presenter
-    }
+    var presenter: MainPresenter? = null
 
     suspend fun onViewCreated() {
         try {
@@ -28,9 +23,5 @@ class MainController @Inject constructor(private var model: MainModel, private v
 
     fun onClick() {
         presenter?.displayOnScreen(model.edit)
-    }
-
-    fun onViewCleared() {
-        presenter = null
     }
 }

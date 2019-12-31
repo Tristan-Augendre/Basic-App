@@ -17,7 +17,7 @@ class MainViewModel(private val handle: SavedStateHandle, private val controller
     val editText = MutableLiveData<String>()
 
     init {
-        controller.onViewBind(MainPresenter(this))
+        controller.presenter = MainPresenter(this)
         onCreated()
     }
 
@@ -38,6 +38,6 @@ class MainViewModel(private val handle: SavedStateHandle, private val controller
     }
 
     override fun onCleared() {
-        controller.onViewCleared()
+        controller.presenter = null
     }
 }
