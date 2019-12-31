@@ -1,6 +1,6 @@
 package com.evendred.basicapp.ui.main
 
-import com.evendred.basicapp.actor.network.HttpJsonRequester
+import com.evendred.basicapp.actor.network.NetworkJsonRequester
 import com.evendred.basicapp.extensions.mock
 import com.evendred.basicapp.model.Todo
 import kotlinx.coroutines.runBlocking
@@ -10,7 +10,7 @@ import org.mockito.Mockito.verify
 
 class MainControllerTest {
     private val model: MainModel = mock()
-    private val requester: HttpJsonRequester<List<Todo>> = mock()
+    private val requester: NetworkJsonRequester<List<Todo>> = mock()
     private val presenter: MainPresenter = mock()
 
     private fun setup(): MainController = MainController(model, requester).apply {

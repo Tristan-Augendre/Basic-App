@@ -1,10 +1,10 @@
 package com.evendred.basicapp.ui.main
 
-import com.evendred.basicapp.actor.network.HttpJsonRequester
+import com.evendred.basicapp.actor.network.NetworkJsonRequester
 import com.evendred.basicapp.model.Todo
 import javax.inject.Inject
 
-class MainController @Inject constructor(private var model: MainModel, private val requester: HttpJsonRequester<List<Todo>>) {
+class MainController @Inject constructor(private var model: MainModel, private val requester: NetworkJsonRequester<List<Todo>>) {
     var presenter: MainPresenter? = null
 
     suspend fun onViewCreated() {

@@ -7,11 +7,11 @@ import okhttp3.Request
 import java.io.IOException
 import javax.inject.Inject
 
-class HttpStringRequester @Inject constructor(private val client: OkHttpClient) {
+class NetworkStringRequester @Inject constructor(private val httpClient: OkHttpClient, private val httpRequestBuilder: Request.Builder) {
 
     suspend fun getString(url: String): String = withContext(Dispatchers.IO) {
-        val request = Request.Builder().url(url).build()
-        val response = client.newCall(request).execute()
+        val request = httpRequestBuilder.url(url).build()
+        val response = httpClient.newCall(request).execute()
 
         when(response.isSuccessful) {
             false -> throw IOException("Unexpected code $response")
