@@ -8,6 +8,6 @@ import javax.inject.Inject
 class NetworkJsonRequester<T> @Inject constructor(private val stringRequester: NetworkStringRequester, private val jsonMapper: JsonMapper<T>) {
     suspend fun getJson(url: String): T = withContext(Dispatchers.Default) {
         val response = stringRequester.getString(url)
-        jsonMapper.fromJson(response)
+        jsonMapper.map(response)
     }
 }

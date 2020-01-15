@@ -42,7 +42,7 @@ class NetworkStringRequesterTest {
     }
 
     @Test
-    fun getStringWhenNetworkException() = runBlocking {
+    fun getStringWhenNetworkException() = runBlocking<Unit> {
         //GIVEN
         val requester = setup()
 
@@ -68,7 +68,5 @@ class NetworkStringRequesterTest {
         catch (e: Exception) {
             assertEquals("Unexpected code 500", e.message)
         }
-
-        Unit
     }
 }

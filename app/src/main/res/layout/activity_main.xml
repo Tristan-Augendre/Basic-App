@@ -4,5 +4,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fragment"
-    android:name="com.evendred.basicapp.ui.main.MainFragment"
+    android:name="com.evendred.basicapp.ui.champion.list.ChampionsListFragment"
     tools:layout="@layout/fragment_main" />

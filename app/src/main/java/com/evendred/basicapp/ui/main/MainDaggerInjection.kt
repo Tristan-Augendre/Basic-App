@@ -26,18 +26,18 @@ class MainDaggerInjection {
     }
 
     @Module
-    class MainViewModelModule(private val owner: ViewModelStoreOwner) {
-        @Provides
-        fun provideMainViewModel(factory: MainViewModel.Factory): MainViewModel {
-            return ViewModelProvider(owner, factory).get()
-        }
-    }
-
-    @Module
     class MainViewModelFactoryModule(private val owner: SavedStateRegistryOwner, private val defaultArgs: Bundle?) {
         @Provides
         fun provideMainViewModelFactory(controller: MainController): MainViewModel.Factory {
             return MainViewModel.Factory(owner, defaultArgs, controller)
+        }
+    }
+
+    @Module
+    class MainViewModelModule(private val owner: ViewModelStoreOwner) {
+        @Provides
+        fun provideMainViewModel(factory: MainViewModel.Factory): MainViewModel {
+            return ViewModelProvider(owner, factory).get()
         }
     }
 

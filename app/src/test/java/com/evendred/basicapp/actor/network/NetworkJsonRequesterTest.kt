@@ -21,7 +21,7 @@ class NetworkJsonRequesterTest {
 
         val jsonResult = Any()
         `when`(stringRequester.getString("url")).thenReturn("response")
-        `when`(jsonMapper.fromJson("response")).thenReturn(jsonResult)
+        `when`(jsonMapper.map("response")).thenReturn(jsonResult)
 
         //WHEN
         val json = requester.getJson("url")
