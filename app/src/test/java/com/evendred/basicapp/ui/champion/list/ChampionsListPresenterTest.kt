@@ -35,4 +35,16 @@ class ChampionsListPresenterTest {
         //THEN
         verify(view).displayErrorSnackbar("error")
     }
+
+    @Test
+    fun navigateToChampionDetail() {
+        //GIVEN
+        val presenter = setup()
+
+        //WHEN
+        presenter.navigateToChampionDetail("championId")
+
+        //THEN
+        verify(view).navigateToChampionDetail("championId")
+    }
 }

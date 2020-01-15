@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/championsListFragment">
+
+    <fragment
+        android:id="@+id/championsListFragment"
+        android:name="com.evendred.basicapp.ui.champion.list.ChampionsListFragment"
+        android:label="ChampionsListFragment"
+        tools:layout="@layout/fragment_champions_list">
+
+        <action
+            android:id="@+id/action_championsListFragment_to_championsDetailFragment"
+            app:destination="@id/championsDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/championsDetailFragment"
+        android:name="com.evendred.basicapp.ui.champion.detail.ChampionDetailFragment"
+        android:label="ChampionsDetailFragment" />
+
+</navigation>

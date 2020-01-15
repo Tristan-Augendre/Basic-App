@@ -15,7 +15,7 @@ class ChampionsListControllerTest {
     }
 
     @Test
-    fun onViewCreatedWhenRequesterSuccess() = runBlocking {
+    fun onCreatedWhenRequesterSuccess() = runBlocking {
         //GIVEN
         val model = spy(ChampionsListModel(mock()))
         val controller = setup(model)
@@ -32,7 +32,7 @@ class ChampionsListControllerTest {
     }
 
     @Test
-    fun onViewCreatedWhenRequesterFail() = runBlocking {
+    fun onCreatedWhenRequesterFail() = runBlocking {
         //GIVEN
         val controller = setup()
 
@@ -46,7 +46,7 @@ class ChampionsListControllerTest {
     }
 
     @Test
-    fun onViewCreatedWhenRequesterUnknownFail() = runBlocking {
+    fun onCreatedWhenRequesterUnknownFail() = runBlocking {
         //GIVEN
         val controller = setup()
 
@@ -57,5 +57,36 @@ class ChampionsListControllerTest {
 
         //THEN
         verify(presenter).displayError("unknown error")
+    }
+
+    @Test
+    fun onViewCreated() {
+        //GIVEN
+        val model: ChampionsListModel = mock()
+        val controller = setup(model)
+
+        val championsList: List<Champion> = mock()
+        `when`(model.championsList).thenReturn(championsList)
+
+        //WHEN
+        controller.onViewCreated()
+
+        //THEN
+        verify(presenter).displayChampionsList(championsList)
+    }
+
+    @Test
+    fun onChampionCLick() {
+        //GIVEN
+        val controller = setup()
+
+        val champion: Champion = mock()
+        `when`(champion.id).thenReturn("id")
+
+        //WHEN
+        controller.onChampionCLick(champion)
+
+        //THEN
+        verify(presenter).navigateToChampionDetail("id")
     }
 }

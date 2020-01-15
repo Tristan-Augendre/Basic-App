@@ -9,4 +9,8 @@ class ChampionsListPresenter(private val view: ChampionsListViewModel) {
     fun displayError(error: String) {
         view.displayErrorSnackbar(error)
     }
+
+    fun navigateToChampionDetail(championId: String) {
+        view.navigateToChampionDetail(championId)
+    }
 }

@@ -6,7 +6,7 @@ import javax.inject.Inject
 class ChampionsListController @Inject constructor(private val model: ChampionsListModel, private val requester: DDragonChampionsListRequester<Champion>) {
     var presenter: ChampionsListPresenter? = null
 
-    suspend fun onViewCreated() {
+    suspend fun onCreated() {
         try {
             model.championsList = requester.getChampionsList()
             presenter?.displayChampionsList(model.championsList)
@@ -14,5 +14,13 @@ class ChampionsListController @Inject constructor(private val model: ChampionsLi
             val error = e.message ?: "unknown error"
             presenter?.displayError(error)
         }
+    }
+
+    fun onViewCreated() {
+        presenter?.displayChampionsList(model.championsList)
+    }
+
+    fun onChampionCLick(champion: Champion) {
+        presenter?.navigateToChampionDetail(champion.id)
     }
 }
