@@ -10,6 +10,8 @@ import com.evendred.basicapp.extensions.cast
 import com.evendred.basicapp.extensions.setImageUrl
 
 class ChampionViewHolder(parent: ViewGroup): RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_holder_champion, parent, false)) {
+    //TODO use component view
+
     private val icon: AppCompatImageView = itemView.findViewById(R.id.icon)
     private val name: AppCompatTextView = itemView.findViewById(R.id.name)
     private val title: AppCompatTextView = itemView.findViewById(R.id.title)

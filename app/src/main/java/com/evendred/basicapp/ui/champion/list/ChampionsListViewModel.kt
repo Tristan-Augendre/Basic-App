@@ -14,7 +14,7 @@ class ChampionsListViewModel(private val controller: ChampionsListController): V
     }
 
     private val championsList = MutableLiveData<List<Champion>>()
-    private val errorSnackbar = MutableLiveData<String>()
+    private val errorSnackbar = MutableLiveData<Event<String>>() //TODO Create MutableLiveEvent
     private val navigate = MutableLiveData<Event<NavDirections>>()
 
     init {
@@ -31,7 +31,7 @@ class ChampionsListViewModel(private val controller: ChampionsListController): V
     }
 
     fun observeErrorSnackbar(owner: LifecycleOwner, observer: (String) -> Unit) {
-        errorSnackbar.observe(owner::getLifecycle) { observer(it) }
+        errorSnackbar.observe(owner::getLifecycle) { it.consume()?.let { nav -> observer(nav) } }
     }
 
     fun observeNavigate(owner: LifecycleOwner, observer: (NavDirections) -> Unit) {
@@ -51,7 +51,7 @@ class ChampionsListViewModel(private val controller: ChampionsListController): V
     }
 
     fun displayErrorSnackbar(error: String) {
-        errorSnackbar.value = error
+        errorSnackbar.value = Event(error)
     }
 
     fun navigateToChampionDetail(championId: String) {
